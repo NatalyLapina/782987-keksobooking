@@ -1,3 +1,5 @@
+'use strict';
+
 var X_MIN_COORDINATE = 0;
 var X_MAX_COORDINATE = 1200;
 var Y_MIN_COORDINATE = 130;
@@ -33,10 +35,10 @@ var createSimilarAds = function (index) {
     author: {
       avatar: 'img/avatars/user0' + (index + 1) + '.png'
     },
-     offer: {
+    offer: {
       type: randomIndexOfArray(types),
     },
-     location: {
+    location: {
       x: randomNumber(X_MIN_COORDINATE, X_MAX_COORDINATE),
       y: randomNumber(Y_MIN_COORDINATE, Y_MAX_COORDINATE)
     }
@@ -70,11 +72,7 @@ var renderPin = function (similarAd) {
 
 // Отрисовка шаблона в документ и вставка в блок
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < similarAds.length; i++) {
-  fragment.appendChild(renderPin(similarAds[i]));
+for (var j = 0; j < similarAds.length; j++) {
+  fragment.appendChild(renderPin(similarAds[j]));
 }
 similarPinList.appendChild(fragment);
-
-
-
-
