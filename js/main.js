@@ -3,6 +3,8 @@ var X_MAX_COORDINATE = 1200;
 var Y_MIN_COORDINATE = 130;
 var Y_MAX_COORDINATE = 630;
 var NUMBER_OF_PINS = 8;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 80;
 
 // Функция генерации случайного целого числа из диапазона
 function randomNumber(min, max) {
@@ -11,13 +13,13 @@ function randomNumber(min, max) {
   return rand;
 }
 
-// Функция, возвращающая случайный элемент массива:
+// Функция, возвращающая случайный элемент массива
 var randomIndexOfArray = function (arr) {
   var randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
 };
 
-// Массив со значениями для ключа type:
+// Массив со значениями для ключа type
 var types = [
   'palace',
   'flat',
@@ -25,7 +27,7 @@ var types = [
   'bungalo'
 ];
 
-// Функция, создающая случайный комплект свойств:
+// Функция, создающая случайный комплект свойств
 var createSimilarAds = function (index) {
   var similarAd = {
     author: {
@@ -39,21 +41,39 @@ var createSimilarAds = function (index) {
       y: randomNumber(Y_MIN_COORDINATE, Y_MAX_COORDINATE)
     }
   };
-   return similarAd;
+  return similarAd;
 };
 
-// Создание массива из восьми объектов:
+// Создание массива из восьми объектов
 var similarAds = [];
 for (var i = 0; i < NUMBER_OF_PINS; i++) {
   similarAds.push(createSimilarAds(i));
 }
-console.log(similarAds);
-
-
+// console.log(similarAds);
 
 // Переключение карты в активное состояние
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
+
+var similarPinList = document.querySelector('.map__pins');
+var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+// Функция, создающая DOM-элементы (метки на карте) и заполнение их данными из массива
+var renderPin = function (similarAd) {
+  var pinElement = similarPinTemplate.cloneNode(true);
+  pinElement.style.left = similarAd.location.x - PIN_WIDTH / 2 + 'px';
+  pinElement.style.top = similarAd.location.y - PIN_HEIGHT + 'px';
+  pinElement.querySelector('img').src = similarAd.author.avatar;
+  pinElement.querySelector('img').alt = similarAd.offer.type;
+  return pinElement;
+};
+
+// Отрисовка шаблона в документ и вставка в блок
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < similarAds.length; i++) {
+  fragment.appendChild(renderPin(similarAds[i]));
+}
+similarPinList.appendChild(fragment);
 
 
 
