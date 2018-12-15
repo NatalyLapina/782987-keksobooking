@@ -6,7 +6,7 @@ var Y_MIN_COORDINATE = 130;
 var Y_MAX_COORDINATE = 630;
 var NUMBER_OF_PINS = 8;
 var PIN_WIDTH = 50;
-var PIN_HEIGHT = 80;
+var PIN_HEIGHT = 70;
 
 // Функция генерации случайного целого числа из диапазона
 function randomNumber(min, max) {
@@ -16,8 +16,8 @@ function randomNumber(min, max) {
 }
 
 // Функция, возвращающая случайный элемент массива
-var randomIndexOfArray = function (arr) {
-  var randomIndex = Math.floor(Math.random() * arr.length);
+var randomElementOfArray = function (arr) {
+  var randomIndex = randomNumber(0, arr.length - 1);
   return arr[randomIndex];
 };
 
@@ -36,7 +36,7 @@ var createSimilarAds = function (index) {
       avatar: 'img/avatars/user0' + (index + 1) + '.png'
     },
     offer: {
-      type: randomIndexOfArray(types),
+      type: randomElementOfArray(types),
     },
     location: {
       x: randomNumber(X_MIN_COORDINATE, X_MAX_COORDINATE),
